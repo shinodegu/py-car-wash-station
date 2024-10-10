@@ -21,19 +21,20 @@ class CarWashStation:
     def calculate_washing_price(self, car_info: callable) -> float:
         return round((car_info.comfort_class
                       * (self.clean_power - car_info.clean_mark)
-                      * self.average_rating / self.distance_center), 1)
+                      * self.average_rating / self.distance_center)
+                     , 1)
 
-    def serve_cars(self, teh_card: list) -> float:
+    def serve_cars(self, car_list: list) -> float:
         price = 0
-        for cars in teh_card:
+        for cars in car_list:
             if cars.clean_mark <= self.clean_power:
                 price += self.calculate_washing_price(cars)
                 self.wash_single_car(cars)
         return price
 
-    def wash_single_car(self, dirty_car: set) -> None:
-        if self.clean_power > dirty_car.clean_mark:
-            dirty_car.clean_mark = self.clean_power
+    def wash_single_car(self, car: set) -> None:
+        if self.clean_power > car.clean_mark:
+            car.clean_mark = self.clean_power
 
     def rate_service(self, grade: int) -> None:
         self.average_rating = round((self.count_of_ratings
